@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views import View
+
 from .models import (
     Instructor,
     Section,
@@ -9,16 +11,24 @@ from .models import (
 )
 
 
-def instructor_list_view(request):
-    instructor_list = Instructor.objects.all()
-    # instructor_list = Instructor.objects.none()
-    return render(request, 'courseinfo/instructor_list.html', {'instructor_list': instructor_list})
+class InstructorList(View):
+
+    def get(self, request):
+        return render(
+            request,
+            'courseinfo/instructor_list.html',
+            {'instructor_list': Instructor.objects.all()}
+        )
 
 
-def section_list_view(request):
-    section_list = Section.objects.all()
-    # section_list = Section.objects.none()
-    return render(request, 'courseinfo/section_list.html', {'section_list': section_list})
+class SectionList(View):
+
+    def get(self, request):
+        return render(
+            request,
+            'courseinfo/section_list.html',
+            {'section_list': Section.objects.all()}
+        )
 
 
 def course_list_view(request):
