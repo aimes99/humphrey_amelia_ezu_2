@@ -35,7 +35,7 @@ urlpatterns = [
 
     path('course/',
          CourseList.as_view(),
-         name='courseinfo_course_list_view'),
+         name='courseinfo_course_list_urlpattern'),
 
     path('course/<int:pk>/',
          CourseDetail.as_view(),
