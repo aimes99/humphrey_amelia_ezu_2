@@ -13,6 +13,8 @@ from courseinfo.views import (
     SemesterDetail,
     StudentDetail,
     RegistrationDetail,
+    InstructorCreate,
+    SectionCreate,
 )
 
 urlpatterns = [
@@ -25,6 +27,10 @@ urlpatterns = [
          InstructorDetail.as_view(),
          name='courseinfo_instructor_detail_urlpattern'),
 
+    path('instructor/create/',
+         InstructorCreate.as_view(),
+         name='courseinfo_instructor_create_urlpattern'),
+
     path('section/',
          SectionList.as_view(),
          name='courseinfo_section_list_urlpattern'),
@@ -32,6 +38,10 @@ urlpatterns = [
     path('section/<int:pk>/',
          SectionDetail.as_view(),
          name='courseinfo_section_detail_urlpattern'),
+
+    path('section/Create/',
+         SectionCreate.as_view(),
+         name='courseinfo_section_create_urlpattern'),
 
     path('course/',
          CourseList.as_view(),

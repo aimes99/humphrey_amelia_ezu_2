@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
+from .forms import InstructorForm, SectionForm
 from .models import (
     Instructor,
     Section,
@@ -9,6 +10,7 @@ from .models import (
     Student,
     Registration,
 )
+from .utils import ObjectCreateMixin
 
 
 class InstructorList(View):
@@ -34,6 +36,11 @@ class InstructorDetail(View):
             'courseinfo/instructor_detail.html',
             {'instructor': instructor, 'section_list': section_list}
         )
+
+
+class InstructorCreate(ObjectCreateMixin, View):
+    form_class = InstructorForm
+    template_name = 'courseinfo/instructor_form.html'
 
 
 class SectionList(View):
@@ -66,6 +73,11 @@ class SectionDetail(View):
              'instructor': instructor,
              'registration_list': registration_list}
         )
+
+
+class SectionCreate(ObjectCreateMixin, View):
+    form_class = SectionForm
+    template_name = 'courseinfo/section_form.html'
 
 
 class CourseList(View):
