@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 
 from .models import (
@@ -43,6 +43,45 @@ class InstructorCreate(ObjectCreateMixin, View):
     template_name = 'courseinfo/instructor_form.html'
 
 
+class InstructorUpdate(View):
+    form_class = InstructorForm
+    model = Instructor
+    template_name = 'courseinfo/instructor_form_update.html'
+
+    def get_object(self, pk):
+        return get_object_or_404(
+            self.model,
+            pk=pk)
+
+    def get(self, request, pk):
+        instructor = self.get_object(pk)
+        context = {
+            'form': self.form_class(
+                instance=instructor),
+            'instructor': instructor,
+        }
+        return render(
+            request, self.template_name, context)
+
+    def post(self, request, pk):
+        instructor = self.get_object(pk)
+        bound_form = self.form_class(
+            request.POST, instance=instructor)
+        if bound_form.is_valid():
+            new_instructor = bound_form.save()
+            return redirect(new_instructor)
+        else:
+            context = {
+                'form': bound_form,
+                'instructor': instructor,
+            }
+            return render(
+                request,
+                self.template_name,
+                context)
+
+
+
 class SectionList(View):
 
     def get(self, request):
@@ -78,6 +117,44 @@ class SectionDetail(View):
 class SectionCreate(ObjectCreateMixin, View):
     form_class = SectionForm
     template_name = 'courseinfo/section_form.html'
+
+
+class SectionUpdate(View):
+    form_class = SectionForm
+    model = Section
+    template_name = 'courseinfo/section_form_update.html'
+
+    def get_object(self, pk):
+        return get_object_or_404(
+            self.model,
+            pk=pk)
+
+    def get(self, request, pk):
+        section = self.get_object(pk)
+        context = {
+            'form': self.form_class(
+                instance=section),
+            'section': section,
+        }
+        return render(
+            request, self.template_name, context)
+
+    def post(self, request, pk):
+        section = self.get_object(pk)
+        bound_form = self.form_class(
+            request.POST, instance=section)
+        if bound_form.is_valid():
+            new_section = bound_form.save()
+            return redirect(new_section)
+        else:
+            context = {
+                'form': bound_form,
+                'section': section,
+            }
+            return render(
+                request,
+                self.template_name,
+                context)
 
 
 class CourseList(View):
