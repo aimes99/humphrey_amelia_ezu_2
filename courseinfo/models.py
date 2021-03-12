@@ -44,6 +44,11 @@ class Semester(models.Model):
                        kwargs={'pk': self.pk}
                        )
 
+    def get_delete_url(self):
+        return reverse('courseinfo_semester_delete_urlpattern',
+                       kwargs={'pk': self.pk}
+                       )
+
     class Meta:
         ordering = ['year__year', 'period__period_sequence']
         constraints = [
@@ -66,6 +71,11 @@ class Course(models.Model):
 
     def get_update_url(self):
         return reverse('courseinfo_course_update_urlpattern',
+                       kwargs={'pk': self.pk}
+                       )
+
+    def get_delete_url(self):
+        return reverse('courseinfo_course_delete_urlpattern',
                        kwargs={'pk': self.pk}
                        )
 
@@ -135,6 +145,11 @@ class Student(models.Model):
 
     def get_update_url(self):
         return reverse('courseinfo_student_update_urlpattern',
+                       kwargs={'pk': self.pk}
+                       )
+
+    def get_delete_url(self):
+        return reverse('courseinfo_student_delete_urlpattern',
                        kwargs={'pk': self.pk}
                        )
 
