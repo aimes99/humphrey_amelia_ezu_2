@@ -6,11 +6,14 @@
 
 {% block content %}
     <h2>{{ registration }}</h2>
-    <ul>
+    <ul class="ezu-button-list">
         <li>
-          <a href="{{ registration.get_update_url }}">
+          <a href="{{ registration.get_update_url }}"
+             class="button button-primary">
             Edit Registration</a></li>
-          <a href="{{ registration.get_delete_url }}">
+        <li>
+          <a href="{{ registration.get_delete_url }}"
+             class="button button-primary">
             Delete Registration</a></li>
     </ul>
 

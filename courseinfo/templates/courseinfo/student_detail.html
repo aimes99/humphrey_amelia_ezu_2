@@ -6,11 +6,14 @@
 
 {% block content %}
     <h2>{{ student }}</h2>
-    <ul>
+    <ul class="ezu-button-list">
         <li>
-          <a href="{{ student.get_update_url }}">
+          <a href="{{ student.get_update_url }}"
+             class="button button-primary">
             Edit Student</a></li>
-          <a href="{{ student.get_delete_url }}">
+        <li>
+          <a href="{{ student.get_delete_url }}"
+             class="button button-primary">
             Delete Student</a></li>
     </ul>
 
