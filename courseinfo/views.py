@@ -108,14 +108,8 @@ class InstructorDelete(View):
         return redirect('courseinfo_instructor_list_urlpattern')
 
 
-class SectionList(View):
-
-    def get(self, request):
-        return render(
-            request,
-            'courseinfo/section_list.html',
-            {'section_list': Section.objects.all()}
-        )
+class SectionList(ListView):
+    model = Section
 
 
 class SectionDetail(View):
@@ -214,14 +208,8 @@ class SectionDelete(View):
         return redirect('courseinfo_section_list_urlpattern')
 
 
-class CourseList(View):
-
-    def get(self, request):
-        return render(
-            request,
-            'courseinfo/course_list.html',
-            {'course_list': Course.objects.all()}
-        )
+class CourseList(ListView):
+    model = Course
 
 
 class CourseDetail(View):
@@ -315,14 +303,8 @@ class CourseDelete(View):
         return redirect('courseinfo_course_list_urlpattern')
 
 
-class SemesterList(View):
-
-    def get(self, request):
-        return render(
-            request,
-            'courseinfo/semester_list.html',
-            {'semester_list': Semester.objects.all()}
-        )
+class SemesterList(ListView):
+    model = Semester
 
 
 class SemesterDetail(View):
@@ -513,14 +495,8 @@ class StudentDelete(View):
         return redirect('courseinfo_student_list_urlpattern')
 
 
-class RegistrationList(View):
-
-    def get(self, request):
-        return render(
-            request,
-            'courseinfo/registration_list.html',
-            {'registration_list': Registration.objects.all()}
-        )
+class RegistrationList(ListView):
+    model = Registration
 
 
 class RegistrationDetail(View):
