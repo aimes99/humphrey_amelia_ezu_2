@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import (
     Instructor,
@@ -41,10 +42,12 @@ class InstructorUpdate(UpdateView):
     template_name = 'courseinfo/instructor_form_update.html'
 
 
-class InstructorDelete(View):
+class InstructorDelete(DeleteView):
+    model = Instructor
+    success_url = reverse_lazy('courseinfo_instructor_list_urlpattern')
 
     def get(self, request, pk):
-        instructor = self.get_object(pk)
+        instructor = get_object_or_404(Instructor, pk=pk)
         sections = instructor.sections.all()
         if sections.count() > 0:
             return render(
@@ -60,16 +63,6 @@ class InstructorDelete(View):
                 'courseinfo/instructor_confirm_delete.html',
                 {'instructor': instructor}
             )
-
-    def get_object(self, pk):
-        return get_object_or_404(
-            Instructor,
-            pk=pk)
-
-    def post(self, request, pk):
-        instructor = self.get_object(pk)
-        instructor.delete()
-        return redirect('courseinfo_instructor_list_urlpattern')
 
 
 class SectionList(ListView):
@@ -470,24 +463,6 @@ class RegistrationUpdate(View):
                 context)
 
 
-class RegistrationDelete(View):
-
-    def get(self, request, pk):
-        registration = self.get_object(pk)
-        return render(
-            request,
-            'courseinfo/registration_confirm_delete.html',
-            {'registration': registration}
-        )
-
-    def get_object(self, pk):
-        registration = get_object_or_404(
-            Registration,
-            pk=pk
-        )
-        return registration
-
-    def post(self, request, pk):
-        registration = self.get_object(pk)
-        registration.delete()
-        return redirect('courseinfo_registration_list_urlpattern')
+class RegistrationDelete(DeleteView):
+    model = Registration
+    success_url = reverse_lazy('courseinfo_registration_list_urlpattern')
