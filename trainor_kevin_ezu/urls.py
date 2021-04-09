@@ -3,7 +3,6 @@ from django.urls import path, include
 from django.views.generic import RedirectView, TemplateView
 
 urlpatterns = [
-
     path('',
          RedirectView.as_view(
              pattern_name='courseinfo_section_list_urlpattern',
@@ -19,5 +18,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('courseinfo.urls'))
-
 ]
