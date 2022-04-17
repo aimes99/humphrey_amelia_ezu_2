@@ -9,7 +9,7 @@ class Period(models.Model):
     period_name = models.CharField(max_length=45, unique=True)
 
     def __str__(self):
-        return '%s' % self.period_name
+        return f'{self.period_name}'
 
     class Meta:
         ordering = ['period_sequence']
@@ -20,7 +20,7 @@ class Year(models.Model):
     year = models.IntegerField(unique=True)
 
     def __str__(self):
-        return '%s' % self.year
+        return f'{self.year}'
 
     class Meta:
         ordering = ['year']
@@ -32,7 +32,7 @@ class Semester(models.Model):
     period = models.ForeignKey(Period, related_name='semesters', on_delete=models.PROTECT)
 
     def __str__(self):
-        return '%s - %s' % (self.year.year, self.period.period_name)
+        return f'{self.year.year} - {self.period.period_name}'
 
     def get_absolute_url(self):
         return reverse('courseinfo_semester_detail_urlpattern',
@@ -62,7 +62,7 @@ class Course(models.Model):
     course_name = models.CharField(max_length=255)
 
     def __str__(self):
-        return '%s - %s' % (self.course_number, self.course_name)
+        return f'{self.course_number} - {self.course_name}'
 
     def get_absolute_url(self):
         return reverse('courseinfo_course_detail_urlpattern',
@@ -95,9 +95,9 @@ class Instructor(models.Model):
     def __str__(self):
         result = ''
         if self.disambiguator == '':
-            result = '%s, %s' % (self.last_name, self.first_name)
+            result = f'{self.last_name}, {self.first_name}'
         else:
-            result = '%s, %s (%s)' % (self.last_name, self.first_name, self.disambiguator)
+            result = f'{self.last_name}, {self.first_name} ({self.disambiguator})'
         return result
 
     def get_absolute_url(self):
@@ -133,9 +133,9 @@ class Student(models.Model):
     def __str__(self):
         result = ''
         if self.disambiguator == '':
-            result = '%s, %s' % (self.last_name, self.first_name)
+            result = f'{self.last_name}, {self.first_name}'
         else:
-            result = '%s, %s (%s)' % (self.last_name, self.first_name, self.disambiguator)
+            result = f'{self.last_name}, {self.first_name} ({self.disambiguator})'
         return result
 
     def get_absolute_url(self):
@@ -169,7 +169,7 @@ class Section(models.Model):
     instructor = models.ForeignKey(Instructor, related_name='sections', on_delete=models.PROTECT)
 
     def __str__(self):
-        return '%s - %s (%s)' % (self.course.course_number, self.section_name, self.semester.__str__())
+        return f'{self.course.course_number} - {self.section_name} ({self.semester.__str__()})'
 
     def get_absolute_url(self):
         return reverse('courseinfo_section_detail_urlpattern',
@@ -201,7 +201,7 @@ class Registration(models.Model):
     section = models.ForeignKey(Section, related_name='registrations',  on_delete=models.PROTECT)
 
     def __str__(self):
-        return '%s / %s' % (self.section, self.student)
+        return f'{self.section} / {self.student}'
 
     def get_absolute_url(self):
         return reverse('courseinfo_registration_detail_urlpattern',
